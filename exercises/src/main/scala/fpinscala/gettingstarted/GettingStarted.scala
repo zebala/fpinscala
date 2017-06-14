@@ -147,7 +147,18 @@ object PolymorphicFunctions {
 
   // Exercise 2: Implement a polymorphic function to check whether
   // an `Array[A]` is sorted
-  def isSorted[A](as: Array[A], gt: (A,A) => Boolean): Boolean = ???
+  def isSorted[A](as: Array[A], gt: (A,A) => Boolean): Boolean = {
+    @annotation.tailrec
+    def go(l: Int, r: Int): Boolean = {
+      if (r > as.length-1) true
+      else if (gt(as(l), as(r))) go(l+1, r+1)
+      else false
+    }
+
+    go(0, 1)
+    // TODO Why do I have two parameters for go?
+  }
+
 
   // Polymorphic functions are often so constrained by their type
   // that they only have one implementation! Here's an example:
